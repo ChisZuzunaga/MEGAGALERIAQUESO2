@@ -5,12 +5,19 @@ var modal = document.getElementById("myModal");
 var imgs = document.getElementsByClassName("myImg");
 var modalImg = document.getElementById("img01");
 var captionText = document.getElementById("caption");
+var carouselIndicators = document.querySelector(".carousel-indicators");
+
 
 for (var i = 0; i < imgs.length; i++) {
   imgs[i].onclick = function(){
     modal.style.display = "block";
     modalImg.src = this.src;
     captionText.innerHTML = this.alt;
+
+    // Ocultar los carousel indicators
+    if (carouselIndicators) {
+      carouselIndicators.style.display = "none";
+    }
   }
 }
 
@@ -24,14 +31,9 @@ document.getElementById('myModal').addEventListener('click', function (event) {
   // Verifica si el clic fue fuera de modal-content
   if (!modalContent.contains(event.target)) {
     this.style.display = 'none'; // Cierra el modal
+
+    if (carouselIndicators) {
+      carouselIndicators.style.display = "flex";
+    }
   }
 });
-
-function downloadImage(imageUrl) {
-  const a = document.createElement('a');
-  a.href = imageUrl;
-  a.download = 'imagen.jpg'; // Nombre con el que se descargará la imagen
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-}
